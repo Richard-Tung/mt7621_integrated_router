@@ -1,0 +1,32 @@
+#!/bin/sh
+
+. /lib/functions.sh
+
+#logger "button ${BUTTON} ${ACTION} for ${SEEN} sec(s)"
+
+function seconds_to_str() {
+    local seconds=$1
+    printf "%dh%dm%ds" $((seconds/3600)) $(( (seconds%3600)/60 )) $((seconds%60))
+}
+
+LOCK_FILE="/tmp/acc_operate.lock"
+
+exec 200>"$LOCK_FILE"
+
+flock -x 200
+
+case "$ACTION" in
+pressed)
+	logger -t "car_acc" "car power is on, sleeped $(seconds_to_str ${SEEN})"
+	wifi up
+	#sh /root/car_acc.sh
+;;
+released)
+	logger -t "car_acc" "car power is off, traveled $(seconds_to_str ${SEEN})"
+	wifi down
+	#sh /root/car_off.sh
+;;
+esac
+
+flock -u 200
+return 0
