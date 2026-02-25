@@ -91,6 +91,10 @@ orange:lan2
 
 ## 目录结构:
 
+##### 3d_model:
+
+用于安装在车上的外壳3D模型
+
 ##### datasheet:
 
 部分原件datasheet
