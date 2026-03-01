@@ -30,7 +30,7 @@ GPL 3.0
 
 ##### 硬件:
 
-[立创开源硬件平台](http://oshwhub.com/richard.tung/car_integrated_router)
+[立创开源硬件平台](https://oshwhub.com/richard.tung/open_car_integrated_router_v3-1)
 
 ##### 软件:
 
