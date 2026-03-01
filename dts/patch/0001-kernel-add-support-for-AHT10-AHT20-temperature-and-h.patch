@@ -1,0 +1,37 @@
+From 15325b290e3d966bd8e1e71487f2aba8f8fd9fcb Mon Sep 17 00:00:00 2001
+From: Richard Tung <dyq@dyq.me>
+Date: Sat, 10 Jan 2026 14:44:52 +0800
+Subject: [PATCH 1/2] kernel: add support for AHT10/AHT20 temperature and
+ humidity sensors
+
+---
+ package/kernel/linux/modules/hwmon.mk | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/package/kernel/linux/modules/hwmon.mk b/package/kernel/linux/modules/hwmon.mk
+index ae9b35114b..2c3a79e503 100644
+--- a/package/kernel/linux/modules/hwmon.mk
++++ b/package/kernel/linux/modules/hwmon.mk
+@@ -61,6 +61,19 @@ endef
+ 
+ $(eval $(call KernelPackage,hwmon-adt7410))
+ 
++define KernelPackage/hwmon-aht10
++  TITLE:=AHT10/AHT20 and compat. monitoring support
++  KCONFIG:=CONFIG_SENSORS_AHT10
++  FILES:=$(LINUX_DIR)/drivers/hwmon/aht10.ko
++  AUTOLOAD:=$(call AutoProbe,aht10)
++  $(call AddDepends/hwmon,+kmod-i2c-core +kmod-lib-crc8)
++endef
++
++define KernelPackage/hwmon-aht10/description
++ Kernel module for AHT10/AHT20 temperature and humidity sensors chip
++endef
++
++$(eval $(call KernelPackage,hwmon-aht10))
+ 
+ define KernelPackage/hwmon-adt7475
+   TITLE:=ADT7473/7475/7476/7490 monitoring support
+-- 
+2.34.1
+
